@@ -37,18 +37,26 @@ class Evaluator:
     def evaluate_classification(
         self,
         val_loader: DataLoader,
+        num_classes: int = None,
     ) -> Dict[str, float]:
         """Evaluate classification model.
 
         Args:
             val_loader: DataLoader yielding dict batches with "image" and "label".
+            num_classes: Number of classes (optional; enables per-class metrics and AUC).
 
         Returns:
             Dictionary with metrics:
             - 'accuracy': Classification accuracy
             - 'top_5_accuracy': Top-5 accuracy
+            - 'precision_per_class': Per-class precision (if num_classes provided)
+            - 'recall_per_class': Per-class recall (if num_classes provided)
+            - 'f1_per_class': Per-class F1 (if num_classes provided)
+            - 'macro_f1': Macro-averaged F1 (if num_classes provided)
+            - 'micro_f1': Micro-averaged F1 (if num_classes provided)
+            - 'roc_auc': ROC-AUC score (if num_classes provided)
         """
-        metrics = ClassificationMetrics()
+        metrics = ClassificationMetrics(num_classes=num_classes)
 
         with torch.no_grad():
             for batch in val_loader:

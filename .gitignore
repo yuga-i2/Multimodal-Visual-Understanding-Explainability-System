@@ -1,0 +1,67 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+
+# =========================
+# Virtual Environments
+# =========================
+venv/
+.env/
+.envrc
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs & Outputs
+# =========================
+*.log
+outputs/
+checkpoints/
+runs/
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Large / Reference Material (DO NOT COMMIT)
+# =========================
+original_repos_backup/
+original_repos/
+third_party/
+external/
+
+# =========================
+# Temporary / Scratch
+# =========================
+tmp/
+scratch/
+cache/
+
+# =========================
+# Test Artifacts
+# =========================
+.pytest_cache/
+coverage/
+htmlcov/

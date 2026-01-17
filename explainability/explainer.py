@@ -9,9 +9,34 @@ import torch
 import torch.nn as nn
 
 from explainability.base import BaseExplainer, get_layer_by_name
-from explainability.grad_cam import GradCAM, LayerGradCAM
+from explainability.grad_cam import GradCAM
 from explainability.attention_maps import AttentionMapExtractor
 from explainability.saliency import VanillaSaliency, SmoothGrad, IntegratedGradients
+
+
+class LayerGradCAM:
+    """Utility class for layer-based Grad-CAM operations."""
+    
+    @staticmethod
+    def suggest_target_layer(model: nn.Module) -> Optional[nn.Module]:
+        """Auto-select appropriate target layer for Grad-CAM.
+        
+        Prioritizes: Conv2d layers from the last conv block or final layers.
+        Falls back to last Conv2d layer in the model.
+        
+        Args:
+            model: PyTorch model to analyze.
+            
+        Returns:
+            Suggested nn.Module to use as target layer, or None if not found.
+        """
+        conv_layers = []
+        for module in model.modules():
+            if isinstance(module, nn.Conv2d):
+                conv_layers.append(module)
+        
+        # Return last conv layer if any exist
+        return conv_layers[-1] if conv_layers else None
 
 
 class Explainer:

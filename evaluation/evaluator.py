@@ -67,6 +67,10 @@ class Evaluator:
                 # Forward pass
                 outputs = self.model(images)
 
+                # Extract classification output if model returns dict (multi-task)
+                if isinstance(outputs, dict):
+                    outputs = outputs.get("classification", outputs)
+
                 # Update metrics
                 metrics.update(outputs, labels)
 
